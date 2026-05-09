@@ -15,6 +15,7 @@
     <Window.Resources>
         <conv:ServerStateToBrushConverter x:Key="StateToBrush" />
         <conv:ServerStateToTextConverter x:Key="StateToText" />
+        <conv:GameIdToIconConverter x:Key="GameIdToIcon" />
     </Window.Resources>
 
     <Grid ColumnDefinitions="240,*">
@@ -83,13 +84,29 @@
                     </ListBox.Styles>
                     <ListBox.ItemTemplate>
                         <DataTemplate x:DataType="vm:SidebarItemViewModel">
-                            <Grid ColumnDefinitions="Auto,*" RowDefinitions="Auto,Auto">
-                                <Ellipse Grid.Column="0" Grid.RowSpan="2"
+                            <Grid ColumnDefinitions="Auto,Auto,*" RowDefinitions="Auto,Auto">
+                                <!-- Game icon -->
+                                <Border Grid.Column="0" Grid.RowSpan="2"
+                                        Width="28" Height="28"
+                                        CornerRadius="6"
+                                        Background="#1A1A1A"
+                                        ClipToBounds="True"
+                                        Margin="0,0,8,0"
+                                        VerticalAlignment="Center">
+                                    <Image Source="{Binding GameId, Converter={StaticResource GameIdToIcon}}"
+                                           Width="20" Height="20"
+                                           Stretch="Uniform"
+                                           HorizontalAlignment="Center"
+                                           VerticalAlignment="Center" />
+                                </Border>
+                                <!-- Status dot -->
+                                <Ellipse Grid.Column="1" Grid.RowSpan="2"
                                          Width="8" Height="8"
                                          Fill="{Binding State, Converter={StaticResource StateToBrush}}"
-                                         Margin="4,0,10,0"
+                                         Margin="0,0,8,0"
                                          VerticalAlignment="Center" />
-                                <DockPanel Grid.Column="1" Grid.Row="0">
+                                <!-- Server name + players -->
+                                <DockPanel Grid.Column="2" Grid.Row="0">
                                     <TextBlock DockPanel.Dock="Right"
                                                Text="{Binding PlayerInfo}"
                                                FontSize="11"
@@ -101,7 +118,8 @@
                                                Foreground="#E0E0E0"
                                                TextTrimming="CharacterEllipsis" />
                                 </DockPanel>
-                                <StackPanel Grid.Column="1" Grid.Row="1" Orientation="Horizontal" Spacing="6">
+                                <!-- Version + port -->
+                                <StackPanel Grid.Column="2" Grid.Row="1" Orientation="Horizontal" Spacing="6">
                                     <TextBlock Text="{Binding Version}"
                                                FontSize="10"
                                                Foreground="#555555" />
