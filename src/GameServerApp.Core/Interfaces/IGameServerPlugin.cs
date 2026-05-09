@@ -21,6 +21,7 @@ public interface IGameServerPlugin
     int? ParsePlayerDelta(string rawLine);
 
     Task<string> GetLatestVersionAsync(CancellationToken ct = default);
+    Task<IReadOnlyList<string>> GetAvailableVersionsAsync(CancellationToken ct = default);
     Task DownloadServerAsync(string version, string targetDirectory,
         IProgress<double>? progress = null, CancellationToken ct = default);
     Task<bool> ValidateInstallationAsync(string serverDirectory, CancellationToken ct = default);

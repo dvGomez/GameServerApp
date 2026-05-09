@@ -87,6 +87,21 @@ public sealed class MinecraftPlugin : IGameServerPlugin
             ?? throw new InvalidOperationException("Could not determine latest Minecraft version");
     }
 
+    public async Task<IReadOnlyList<string>> GetAvailableVersionsAsync(CancellationToken ct = default)
+    {
+        var manifest = await Http.GetFromJsonAsync<JsonElement>(
+            "https://piston-meta.mojang.com/mc/game/version_manifest_v2.json", ct);
+
+        var versions = new List<string>();
+        foreach (var v in manifest.GetProperty("versions").EnumerateArray())
+        {
+            if (v.GetProperty("type").GetString() == "release")
+                versions.Add(v.GetProperty("id").GetString()!);
+        }
+
+        return versions.AsReadOnly();
+    }
+
     public async Task DownloadServerAsync(string version, string targetDirectory,
         IProgress<double>? progress = null, CancellationToken ct = default)
     {
