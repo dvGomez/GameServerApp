@@ -1,0 +1,28 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <Color x:Key="SidebarBackground">#111111</Color>
+    <Color x:Key="ContentBackground">#1A1A1A</Color>
+    <Color x:Key="ConsoleBackground">#0D0D0D</Color>
+    <Color x:Key="SurfaceColor">#222222</Color>
+    <Color x:Key="BorderSubtle">#2A2A2A</Color>
+    <Color x:Key="TextPrimary">#E0E0E0</Color>
+    <Color x:Key="TextSecondary">#888888</Color>
+    <Color x:Key="AccentColor">#0EA5E9</Color>
+    <Color x:Key="SuccessColor">#22C55E</Color>
+    <Color x:Key="WarningColor">#EAB308</Color>
+    <Color x:Key="ErrorColor">#EF4444</Color>
+
+    <SolidColorBrush x:Key="SidebarBackgroundBrush" Color="{StaticResource SidebarBackground}" />
+    <SolidColorBrush x:Key="ContentBackgroundBrush" Color="{StaticResource ContentBackground}" />
+    <SolidColorBrush x:Key="ConsoleBackgroundBrush" Color="{StaticResource ConsoleBackground}" />
+    <SolidColorBrush x:Key="SurfaceBrush" Color="{StaticResource SurfaceColor}" />
+    <SolidColorBrush x:Key="BorderSubtleBrush" Color="{StaticResource BorderSubtle}" />
+    <SolidColorBrush x:Key="TextPrimaryBrush" Color="{StaticResource TextPrimary}" />
+    <SolidColorBrush x:Key="TextSecondaryBrush" Color="{StaticResource TextSecondary}" />
+    <SolidColorBrush x:Key="AccentBrush" Color="{StaticResource AccentColor}" />
+    <SolidColorBrush x:Key="SuccessBrush" Color="{StaticResource SuccessColor}" />
+    <SolidColorBrush x:Key="WarningBrush" Color="{StaticResource WarningColor}" />
+    <SolidColorBrush x:Key="ErrorBrush" Color="{StaticResource ErrorColor}" />
+
+</ResourceDictionary>

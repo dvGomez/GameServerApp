@@ -1,0 +1,361 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:vm="using:GameServerApp.UI.ViewModels"
+             xmlns:models="using:GameServerApp.Core.Models"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d" d:DesignWidth="900" d:DesignHeight="650"
+             x:Class="GameServerApp.UI.Views.ServerConfigView"
+             x:DataType="vm:ServerConfigViewModel">
+
+    <Grid>
+        <!-- Main content -->
+        <DockPanel>
+
+            <!-- Header -->
+            <Border DockPanel.Dock="Top"
+                    Background="#1F1F1F"
+                    Padding="16,10"
+                    BorderBrush="#2A2A2A"
+                    BorderThickness="0,0,0,1">
+                <Grid ColumnDefinitions="Auto,*,Auto">
+                    <Button Grid.Column="0"
+                            Content="← Back"
+                            Command="{Binding GoBackCommand}"
+                            Padding="12,6"
+                            Background="#2A2A2A"
+                            Foreground="#E0E0E0"
+                            CornerRadius="5"
+                            FontSize="12" />
+                    <TextBlock Grid.Column="1"
+                               Text="{Binding ServerName, StringFormat='Settings — {0}'}"
+                               FontSize="16"
+                               FontWeight="SemiBold"
+                               Foreground="#E0E0E0"
+                               VerticalAlignment="Center"
+                               Margin="16,0,0,0" />
+                    <StackPanel Grid.Column="2" Orientation="Horizontal" Spacing="8">
+                        <Button Content="Open Folder"
+                                Command="{Binding OpenInExplorerCommand}"
+                                Padding="12,6"
+                                Background="#2A2A2A"
+                                Foreground="#E0E0E0"
+                                CornerRadius="5"
+                                FontSize="12" />
+                        <Button Content="Delete Server"
+                                Command="{Binding ShowDeleteDialogCommand}"
+                                Padding="12,6"
+                                Background="#7F1D1D"
+                                Foreground="#FCA5A5"
+                                CornerRadius="5"
+                                FontSize="12" />
+                    </StackPanel>
+                </Grid>
+            </Border>
+
+            <!-- Server Info Bar -->
+            <Border DockPanel.Dock="Top"
+                    Background="#181818"
+                    Padding="16,6"
+                    BorderBrush="#2A2A2A"
+                    BorderThickness="0,0,0,1">
+                <StackPanel Orientation="Horizontal" Spacing="20">
+                    <StackPanel Orientation="Horizontal" Spacing="6">
+                        <TextBlock Text="Port:" FontSize="11" Foreground="#666666" VerticalAlignment="Center" />
+                        <TextBlock Text="{Binding Port}" FontSize="11" Foreground="#E0E0E0" VerticalAlignment="Center" FontFamily="Cascadia Mono, Consolas, monospace" />
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" Spacing="6">
+                        <TextBlock Text="Version:" FontSize="11" Foreground="#666666" VerticalAlignment="Center" />
+                        <TextBlock Text="{Binding Version}" FontSize="11" Foreground="#E0E0E0" VerticalAlignment="Center" FontFamily="Cascadia Mono, Consolas, monospace" />
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" Spacing="6">
+                        <TextBlock Text="Max Players:" FontSize="11" Foreground="#666666" VerticalAlignment="Center" />
+                        <TextBlock Text="{Binding MaxPlayers}" FontSize="11" Foreground="#E0E0E0" VerticalAlignment="Center" FontFamily="Cascadia Mono, Consolas, monospace" />
+                    </StackPanel>
+                </StackPanel>
+            </Border>
+
+            <!-- Tab Bar -->
+            <Border DockPanel.Dock="Top"
+                    Background="#181818"
+                    Padding="16,0"
+                    BorderBrush="#2A2A2A"
+                    BorderThickness="0,0,0,1">
+                <StackPanel Orientation="Horizontal" Spacing="0">
+                    <Button Content="Settings"
+                            Command="{Binding SetTabCommand}"
+                            CommandParameter="0"
+                            Padding="16,10"
+                            Background="Transparent"
+                            FontSize="13"
+                            FontWeight="Medium"
+                            CornerRadius="0"
+                            BorderThickness="0,0,0,2">
+                        <Button.Styles>
+                            <Style Selector="Button">
+                                <Setter Property="BorderBrush" Value="Transparent" />
+                                <Setter Property="Foreground" Value="#888888" />
+                            </Style>
+                        </Button.Styles>
+                    </Button>
+                    <Button Content="Files"
+                            Command="{Binding SetTabCommand}"
+                            CommandParameter="1"
+                            Padding="16,10"
+                            Background="Transparent"
+                            FontSize="13"
+                            FontWeight="Medium"
+                            CornerRadius="0"
+                            BorderThickness="0,0,0,2">
+                        <Button.Styles>
+                            <Style Selector="Button">
+                                <Setter Property="BorderBrush" Value="Transparent" />
+                                <Setter Property="Foreground" Value="#888888" />
+                            </Style>
+                        </Button.Styles>
+                    </Button>
+                </StackPanel>
+            </Border>
+
+            <!-- Tab Content -->
+            <Panel>
+                <!-- Settings Tab -->
+                <ScrollViewer IsVisible="{Binding IsSettingsTab}">
+                    <Panel>
+                        <StackPanel Margin="32,20" MaxWidth="600">
+                            <!-- Status + Save -->
+                            <DockPanel Margin="0,0,0,16">
+                                <Button DockPanel.Dock="Right"
+                                        Content="Save Settings"
+                                        Command="{Binding SaveCommand}"
+                                        Padding="16,8"
+                                        Background="#0EA5E9"
+                                        Foreground="White"
+                                        CornerRadius="5"
+                                        FontWeight="Medium"
+                                        FontSize="12" />
+                                <TextBlock Text="{Binding StatusMessage}"
+                                           FontSize="12"
+                                           Foreground="#22C55E"
+                                           VerticalAlignment="Center" />
+                            </DockPanel>
+
+                            <ItemsControl ItemsSource="{Binding Fields}">
+                                <ItemsControl.ItemTemplate>
+                                    <DataTemplate x:DataType="vm:ConfigFieldViewModel">
+                                        <StackPanel Margin="0,0,0,16">
+                                            <TextBlock Text="{Binding DisplayName}"
+                                                       FontSize="13"
+                                                       FontWeight="Medium"
+                                                       Foreground="#E0E0E0"
+                                                       Margin="0,0,0,4" />
+                                            <TextBlock Text="{Binding Description}"
+                                                       FontSize="11"
+                                                       Foreground="#666666"
+                                                       Margin="0,0,0,6"
+                                                       IsVisible="{Binding Description, Converter={x:Static StringConverters.IsNotNullOrEmpty}}" />
+                                            <TextBox Text="{Binding Value}"
+                                                     Background="#222222"
+                                                     Foreground="#E0E0E0"
+                                                     BorderBrush="#2A2A2A"
+                                                     CornerRadius="5"
+                                                     Padding="10,8"
+                                                     FontSize="13" />
+                                        </StackPanel>
+                                    </DataTemplate>
+                                </ItemsControl.ItemTemplate>
+                            </ItemsControl>
+                        </StackPanel>
+                    </Panel>
+                </ScrollViewer>
+
+                <!-- Files Tab -->
+                <Panel IsVisible="{Binding IsFilesTab}">
+                    <Grid>
+                        <!-- File Browser (shown when no file is open) -->
+                        <DockPanel IsVisible="{Binding !IsFileOpen}">
+                            <!-- Breadcrumb -->
+                            <Border DockPanel.Dock="Top"
+                                    Background="#181818"
+                                    Padding="16,8"
+                                    BorderBrush="#2A2A2A"
+                                    BorderThickness="0,0,0,1">
+                                <DockPanel>
+                                    <Button DockPanel.Dock="Right"
+                                            Content="Refresh"
+                                            Command="{Binding RefreshFilesCommand}"
+                                            Padding="10,4"
+                                            Background="#2A2A2A"
+                                            Foreground="#E0E0E0"
+                                            CornerRadius="4"
+                                            FontSize="11" />
+                                    <TextBlock Text="{Binding CurrentBrowsePath}"
+                                               FontSize="12"
+                                               Foreground="#888888"
+                                               VerticalAlignment="Center"
+                                               FontFamily="Cascadia Mono, Consolas, monospace"
+                                               TextTrimming="CharacterEllipsis" />
+                                </DockPanel>
+                            </Border>
+
+                            <!-- Status message -->
+                            <Border DockPanel.Dock="Top"
+                                    Padding="16,6"
+                                    Background="#1A1A1A"
+                                    IsVisible="{Binding FileStatusMessage, Converter={x:Static StringConverters.IsNotNullOrEmpty}}">
+                                <TextBlock Text="{Binding FileStatusMessage}"
+                                           FontSize="12"
+                                           Foreground="#EAB308" />
+                            </Border>
+
+                            <!-- File list -->
+                            <ScrollViewer>
+                                <ItemsControl ItemsSource="{Binding FileEntries}" Padding="4">
+                                    <ItemsControl.ItemTemplate>
+                                        <DataTemplate x:DataType="vm:FileEntryViewModel">
+                                            <Button Command="{Binding $parent[UserControl].((vm:ServerConfigViewModel)DataContext).NavigateToEntryCommand}"
+                                                    CommandParameter="{Binding}"
+                                                    Background="Transparent"
+                                                    Padding="12,8"
+                                                    HorizontalAlignment="Stretch"
+                                                    HorizontalContentAlignment="Stretch"
+                                                    CornerRadius="4"
+                                                    Margin="0,1"
+                                                    Cursor="Hand">
+                                                <Button.Styles>
+                                                    <Style Selector="Button:pointerover /template/ ContentPresenter">
+                                                        <Setter Property="Background" Value="#222222" />
+                                                    </Style>
+                                                </Button.Styles>
+                                                <Grid ColumnDefinitions="Auto,*,Auto">
+                                                    <Panel Grid.Column="0" Width="24">
+                                                        <TextBlock FontSize="14"
+                                                                   VerticalAlignment="Center"
+                                                                   IsVisible="{Binding IsDirectory}"
+                                                                   Text="📁" />
+                                                        <TextBlock FontSize="14"
+                                                                   VerticalAlignment="Center"
+                                                                   IsVisible="{Binding !IsDirectory}"
+                                                                   Text="📄" />
+                                                    </Panel>
+                                                    <TextBlock Grid.Column="1"
+                                                               Text="{Binding Name}"
+                                                               FontSize="13"
+                                                               Foreground="#E0E0E0"
+                                                               VerticalAlignment="Center"
+                                                               Margin="8,0,0,0" />
+                                                    <TextBlock Grid.Column="2"
+                                                               Text="{Binding Size}"
+                                                               FontSize="11"
+                                                               Foreground="#555555"
+                                                               VerticalAlignment="Center"
+                                                               IsVisible="{Binding Size, Converter={x:Static StringConverters.IsNotNullOrEmpty}}" />
+                                                </Grid>
+                                            </Button>
+                                        </DataTemplate>
+                                    </ItemsControl.ItemTemplate>
+                                </ItemsControl>
+                            </ScrollViewer>
+                        </DockPanel>
+
+                        <!-- File Editor (shown when a file is open) -->
+                        <DockPanel IsVisible="{Binding IsFileOpen}">
+                            <!-- Editor header -->
+                            <Border DockPanel.Dock="Top"
+                                    Background="#181818"
+                                    Padding="16,8"
+                                    BorderBrush="#2A2A2A"
+                                    BorderThickness="0,0,0,1">
+                                <DockPanel>
+                                    <StackPanel DockPanel.Dock="Right" Orientation="Horizontal" Spacing="8">
+                                        <TextBlock Text="{Binding FileStatusMessage}"
+                                                   FontSize="12"
+                                                   Foreground="#22C55E"
+                                                   VerticalAlignment="Center" />
+                                        <Button Content="Save"
+                                                Command="{Binding SaveFileCommand}"
+                                                Padding="12,5"
+                                                Background="#0EA5E9"
+                                                Foreground="White"
+                                                CornerRadius="4"
+                                                FontSize="12"
+                                                FontWeight="Medium" />
+                                        <Button Content="Close"
+                                                Command="{Binding CloseFileCommand}"
+                                                Padding="12,5"
+                                                Background="#2A2A2A"
+                                                Foreground="#E0E0E0"
+                                                CornerRadius="4"
+                                                FontSize="12" />
+                                    </StackPanel>
+                                    <TextBlock Text="{Binding OpenFileName}"
+                                               FontSize="13"
+                                               FontWeight="Medium"
+                                               Foreground="#E0E0E0"
+                                               VerticalAlignment="Center"
+                                               FontFamily="Cascadia Mono, Consolas, monospace" />
+                                </DockPanel>
+                            </Border>
+
+                            <!-- Editor area -->
+                            <TextBox Text="{Binding FileContent}"
+                                     AcceptsReturn="True"
+                                     AcceptsTab="True"
+                                     TextWrapping="NoWrap"
+                                     Background="#0D0D0D"
+                                     Foreground="#E0E0E0"
+                                     BorderThickness="0"
+                                     Padding="16,12"
+                                     FontFamily="Cascadia Mono, Consolas, monospace"
+                                     FontSize="13" />
+                        </DockPanel>
+                    </Grid>
+                </Panel>
+            </Panel>
+        </DockPanel>
+
+        <!-- Delete Confirmation Overlay -->
+        <Border IsVisible="{Binding ShowDeleteConfirmation}"
+                Background="#80000000"
+                HorizontalAlignment="Stretch"
+                VerticalAlignment="Stretch">
+            <Border Background="#1F1F1F"
+                    CornerRadius="10"
+                    Padding="32,24"
+                    MaxWidth="420"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    BorderBrush="#2A2A2A"
+                    BorderThickness="1">
+                <StackPanel Spacing="16">
+                    <TextBlock Text="Delete Server"
+                               FontSize="18"
+                               FontWeight="SemiBold"
+                               Foreground="#E0E0E0" />
+                    <TextBlock TextWrapping="Wrap"
+                               FontSize="13"
+                               Foreground="#888888"
+                               Text="{Binding ServerName, StringFormat='Are you sure you want to delete &quot;{0}&quot;? All server files, world data, and configurations will be permanently deleted. This action cannot be undone.'}" />
+                    <StackPanel Orientation="Horizontal" Spacing="8" HorizontalAlignment="Right" Margin="0,8,0,0">
+                        <Button Content="Cancel"
+                                Command="{Binding CancelDeleteCommand}"
+                                Padding="16,8"
+                                Background="#2A2A2A"
+                                Foreground="#E0E0E0"
+                                CornerRadius="5"
+                                FontSize="13" />
+                        <Button Content="Delete Everything"
+                                Command="{Binding ConfirmDeleteCommand}"
+                                IsEnabled="{Binding !IsDeleting}"
+                                Padding="16,8"
+                                Background="#DC2626"
+                                Foreground="White"
+                                CornerRadius="5"
+                                FontSize="13"
+                                FontWeight="Medium" />
+                    </StackPanel>
+                </StackPanel>
+            </Border>
+        </Border>
+    </Grid>
+</UserControl>

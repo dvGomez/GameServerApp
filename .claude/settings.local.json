@@ -1,0 +1,25 @@
+{
+  "permissions": {
+    "allow": [
+      "WebSearch",
+      "PowerShell(java *)",
+      "PowerShell(dotnet new search *)",
+      "WebFetch(domain:piston-meta.mojang.com)",
+      "WebFetch(domain:docs.avaloniaui.net)",
+      "WebFetch(domain:minecraft.wiki)",
+      "WebFetch(domain:wiki.vg)",
+      "Bash(dotnet new *)",
+      "Bash(dotnet sln *)",
+      "Bash(dotnet add *)",
+      "Bash(dotnet build *)",
+      "Bash(timeout 8 dotnet run --project src/GameServerApp.UI)",
+      "Bash(git init *)",
+      "Bash(git checkout *)",
+      "PowerShell(Join-Path *)",
+      "PowerShell(Remove-Item *)",
+      "PowerShell(dotnet build *)",
+      "PowerShell(Start-Process dotnet -ArgumentList \"run\",\"--project\",\"D:\\\\Projects\\\\temp\\\\GameServerApp\\\\src\\\\GameServerApp.UI\" -PassThru | Select-Object -Property Id)",
+      "PowerShell(Start-Process -FilePath \"dotnet\" -ArgumentList \"run --project D:\\\\Projects\\\\temp\\\\GameServerApp\\\\src\\\\GameServerApp.UI\" -WindowStyle Normal)"
+    ]
+  }
+}

@@ -1,0 +1,75 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:vm="using:GameServerApp.UI.ViewModels"
+             xmlns:models="using:GameServerApp.Core.Models"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="600"
+             x:Class="GameServerApp.UI.Views.HomeView"
+             x:DataType="vm:HomeViewModel">
+
+    <ScrollViewer>
+        <StackPanel Margin="40,40" MaxWidth="700" HorizontalAlignment="Left">
+
+            <!-- Title -->
+            <TextBlock Text="Create a Game Server"
+                       FontSize="28"
+                       FontWeight="SemiBold"
+                       Foreground="#E0E0E0"
+                       Margin="0,0,0,8" />
+            <TextBlock Text="Pick a game below to set up a new dedicated server on your machine."
+                       FontSize="14"
+                       Foreground="#888888"
+                       Margin="0,0,0,32" />
+
+            <!-- Game Cards -->
+            <ItemsControl ItemsSource="{Binding AvailableGames}">
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <WrapPanel Orientation="Horizontal" />
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate x:DataType="models:GameDefinition">
+                        <Border Background="#222222"
+                                CornerRadius="10"
+                                Padding="24,20"
+                                Margin="0,0,16,16"
+                                Width="280"
+                                BorderBrush="#2A2A2A"
+                                BorderThickness="1"
+                                Cursor="Hand">
+                            <Border.Styles>
+                                <Style Selector="Border:pointerover">
+                                    <Setter Property="BorderBrush" Value="#0EA5E9" />
+                                </Style>
+                            </Border.Styles>
+                            <StackPanel>
+                                <TextBlock Text="{Binding DisplayName}"
+                                           FontSize="18"
+                                           FontWeight="SemiBold"
+                                           Foreground="#E0E0E0"
+                                           Margin="0,0,0,6" />
+                                <TextBlock Text="{Binding Description}"
+                                           FontSize="13"
+                                           Foreground="#888888"
+                                           TextWrapping="Wrap"
+                                           Margin="0,0,0,16" />
+                                <Button Content="Create Server"
+                                        Command="{Binding $parent[UserControl].((vm:HomeViewModel)DataContext).SelectGameCommand}"
+                                        CommandParameter="{Binding GameId}"
+                                        Padding="16,8"
+                                        Background="#0EA5E9"
+                                        Foreground="White"
+                                        CornerRadius="6"
+                                        FontWeight="Medium"
+                                        HorizontalAlignment="Left" />
+                            </StackPanel>
+                        </Border>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+
+        </StackPanel>
+    </ScrollViewer>
+</UserControl>

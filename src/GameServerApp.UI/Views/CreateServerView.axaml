@@ -1,0 +1,102 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:vm="using:GameServerApp.UI.ViewModels"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="600"
+             x:Class="GameServerApp.UI.Views.CreateServerView"
+             x:DataType="vm:CreateServerViewModel">
+
+    <ScrollViewer>
+        <StackPanel Margin="40,40" MaxWidth="500" HorizontalAlignment="Left">
+
+            <!-- Title -->
+            <TextBlock Text="{Binding GameDisplayName, StringFormat='New {0} Server'}"
+                       FontSize="24"
+                       FontWeight="SemiBold"
+                       Foreground="#E0E0E0"
+                       Margin="0,0,0,8" />
+            <TextBlock Text="Configure your server settings and we'll handle the rest."
+                       FontSize="14"
+                       Foreground="#888888"
+                       Margin="0,0,0,32" />
+
+            <!-- Server Name -->
+            <TextBlock Text="Server Name"
+                       FontSize="13"
+                       FontWeight="Medium"
+                       Foreground="#E0E0E0"
+                       Margin="0,0,0,6" />
+            <TextBox Text="{Binding ServerName}"
+                     PlaceholderText="My Awesome Server"
+                     Background="#222222"
+                     Foreground="#E0E0E0"
+                     BorderBrush="#2A2A2A"
+                     CornerRadius="5"
+                     Padding="12,10"
+                     FontSize="14"
+                     Margin="0,0,0,20" />
+
+            <!-- Memory -->
+            <TextBlock Text="Memory (MB)"
+                       FontSize="13"
+                       FontWeight="Medium"
+                       Foreground="#E0E0E0"
+                       Margin="0,0,0,6" />
+            <NumericUpDown Value="{Binding MemoryMb}"
+                           Minimum="512"
+                           Maximum="16384"
+                           Increment="256"
+                           Background="#222222"
+                           Foreground="#E0E0E0"
+                           BorderBrush="#2A2A2A"
+                           CornerRadius="5"
+                           Padding="12,8"
+                           FontSize="14"
+                           Margin="0,0,0,24"
+                           FormatString="N0" />
+
+            <!-- Error Message -->
+            <TextBlock Text="{Binding ErrorMessage}"
+                       Foreground="#EF4444"
+                       FontSize="13"
+                       Margin="0,0,0,12"
+                       IsVisible="{Binding ErrorMessage, Converter={x:Static StringConverters.IsNotNullOrEmpty}}" />
+
+            <!-- Progress -->
+            <StackPanel IsVisible="{Binding IsCreating}" Margin="0,0,0,16">
+                <TextBlock Text="Setting up server..."
+                           FontSize="13"
+                           Foreground="#888888"
+                           Margin="0,0,0,8" />
+                <ProgressBar Value="{Binding DownloadProgress}"
+                             Maximum="1"
+                             Height="4"
+                             CornerRadius="2"
+                             Foreground="#0EA5E9" />
+            </StackPanel>
+
+            <!-- Buttons -->
+            <StackPanel Orientation="Horizontal" Spacing="12">
+                <Button Content="Create Server"
+                        Command="{Binding CreateServerCommand}"
+                        IsEnabled="{Binding !IsCreating}"
+                        Padding="20,10"
+                        Background="#0EA5E9"
+                        Foreground="White"
+                        CornerRadius="6"
+                        FontWeight="Medium"
+                        FontSize="14" />
+                <Button Content="Cancel"
+                        Command="{Binding CancelCommand}"
+                        IsEnabled="{Binding !IsCreating}"
+                        Padding="20,10"
+                        Background="#2A2A2A"
+                        Foreground="#E0E0E0"
+                        CornerRadius="6"
+                        FontSize="14" />
+            </StackPanel>
+
+        </StackPanel>
+    </ScrollViewer>
+</UserControl>
