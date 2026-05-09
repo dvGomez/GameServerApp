@@ -13,6 +13,7 @@ public interface IServerManager
     event EventHandler<ServerConfigChangedEventArgs>? ServerConfigChanged;
 
     Task<ServerInstance> CreateServerAsync(string gameId, string name,
+        string? version = null,
         Dictionary<string, object>? initialConfig = null,
         IProgress<double>? downloadProgress = null,
         CancellationToken ct = default);

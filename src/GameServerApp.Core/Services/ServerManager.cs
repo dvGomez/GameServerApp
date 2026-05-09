@@ -117,6 +117,7 @@ public sealed class ServerManager : IServerManager
 
     public async Task<ServerInstance> CreateServerAsync(
         string gameId, string name,
+        string? version = null,
         Dictionary<string, object>? initialConfig = null,
         IProgress<double>? downloadProgress = null,
         CancellationToken ct = default)
@@ -143,7 +144,7 @@ public sealed class ServerManager : IServerManager
         };
 
         _logger.LogInformation("Downloading server for {GameId}...", gameId);
-        var version = await plugin.GetLatestVersionAsync(ct);
+        version ??= await plugin.GetLatestVersionAsync(ct);
         config.ServerVersion = version;
 
         await plugin.DownloadServerAsync(version, serverDir, downloadProgress, ct);
