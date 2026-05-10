@@ -31,5 +31,6 @@
     <ProjectReference Include="..\GameServerApp.Core\GameServerApp.Core.csproj" />
     <ProjectReference Include="..\GameServerApp.Plugins.Minecraft\GameServerApp.Plugins.Minecraft.csproj" />
     <ProjectReference Include="..\GameServerApp.Plugins.PaperMC\GameServerApp.Plugins.PaperMC.csproj" />
+    <ProjectReference Include="..\GameServerApp.Plugins.FiveM\GameServerApp.Plugins.FiveM.csproj" />
   </ItemGroup>
 </Project>

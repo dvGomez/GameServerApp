@@ -1,6 +1,7 @@
 <Solution>
   <Folder Name="/src/">
     <Project Path="src/GameServerApp.Core/GameServerApp.Core.csproj" />
+    <Project Path="src/GameServerApp.Plugins.FiveM/GameServerApp.Plugins.FiveM.csproj" />
     <Project Path="src/GameServerApp.Plugins.Minecraft/GameServerApp.Plugins.Minecraft.csproj" />
     <Project Path="src/GameServerApp.Plugins.PaperMC/GameServerApp.Plugins.PaperMC.csproj" />
     <Project Path="src/GameServerApp.UI/GameServerApp.UI.csproj" />
