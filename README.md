@@ -23,8 +23,8 @@ com console em tempo real, edição de arquivos e configurações, tudo sem prec
 - 📁 **Navegador de arquivos** — Explore e edite arquivos do servidor direto pela interface
 - 🔄 **Atualizações reativas** — Qualquer alteração reflete automaticamente em toda a UI
 - 📋 **Log persistente** — Troque entre servidores sem perder os logs do console
-- 🧩 **Sistema de plugins** — Extensível para qualquer jogo (Minecraft, PaperMC e FiveM inclusos)
-- 🚀 **Setup automático** — Download do servidor e dependências (Java, FXServer) gerenciados automaticamente
+- 🧩 **Sistema de plugins** — Extensível para qualquer jogo (Minecraft, PaperMC, FiveM e Project Zomboid inclusos)
+- 🚀 **Setup automático** — Download do servidor e dependências (Java, SteamCMD, FXServer) gerenciados automaticamente
 - 🌍 **Cross-platform** — Funciona em Windows, Linux e macOS
 
 ---
@@ -96,6 +96,7 @@ A partir daí você pode:
 | Minecraft Java Edition | `GameServerApp.Plugins.Minecraft` | ✅ Disponível |
 | Minecraft PaperMC | `GameServerApp.Plugins.PaperMC` | ✅ Disponível |
 | FiveM (GTA V) | `GameServerApp.Plugins.FiveM` | ✅ Disponível |
+| Project Zomboid | `GameServerApp.Plugins.Zomboid` | ✅ Disponível |
 | *Seu jogo favorito* | Crie um plugin! | 🔧 Extensível |
 
 ### Criando um plugin
@@ -153,10 +154,15 @@ GameServerApp/
 │   ├── GameServerApp.Plugins.PaperMC/    # Plugin do PaperMC
 │   │   └── PaperPlugin.cs            # PaperMC com suporte a plugins Bukkit/Spigot
 │   │
-│   └── GameServerApp.Plugins.FiveM/      # Plugin do FiveM (GTA V)
-│       ├── FiveMPlugin.cs             # Download via cfx.re, config server.cfg
-│       ├── FiveMConsoleParser.cs       # Parser de logs do FXServer
-│       └── FiveMServerConfig.cs        # Leitura/escrita do server.cfg
+│   ├── GameServerApp.Plugins.FiveM/      # Plugin do FiveM (GTA V)
+│   │   ├── FiveMPlugin.cs             # Download via cfx.re, config server.cfg
+│   │   ├── FiveMConsoleParser.cs       # Parser de logs do FXServer
+│   │   └── FiveMServerConfig.cs        # Leitura/escrita do server.cfg
+│   │
+│   └── GameServerApp.Plugins.Zomboid/    # Plugin do Project Zomboid
+│       ├── ZomboidPlugin.cs            # Download via SteamCMD, suporte Steam/Non-Steam
+│       ├── ZomboidConsoleParser.cs      # Parser de logs do PZ server
+│       └── ZomboidIniConfig.cs          # Leitura/escrita do .ini
 ```
 
 O projeto segue o padrão **MVVM** com separação clara entre Core (lógica), UI (interface) e Plugins (jogos).

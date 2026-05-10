@@ -14,6 +14,7 @@ public class GameIdToIconConverter : IValueConverter
         ["minecraft"] = "avares://GameServerApp.UI/Assets/minecraft.png",
         ["paper"] = "avares://GameServerApp.UI/Assets/minecraft.png",
         ["fivem"] = "avares://GameServerApp.UI/Assets/fivem.png",
+        ["zomboid"] = "avares://GameServerApp.UI/Assets/zomboid.png",
     };
 
     private static readonly Dictionary<string, Bitmap?> Cache = new();

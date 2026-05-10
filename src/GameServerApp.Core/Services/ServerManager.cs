@@ -150,7 +150,8 @@ public sealed class ServerManager : IServerManager
         version ??= await plugin.GetLatestVersionAsync(ct);
         config.ServerVersion = version;
 
-        await plugin.DownloadServerAsync(version, serverDir, downloadProgress, ct);
+        await plugin.DownloadServerAsync(version, serverDir, downloadProgress, ct,
+            line => _logger.LogInformation("[{GameId}] {Line}", gameId, line));
         await plugin.OnBeforeFirstStartAsync(serverDir, ct);
         await plugin.WriteGameConfigAsync(serverDir, config.GameSettings, ct);
         await _configService.SaveServerConfigAsync(config, ct);
@@ -307,12 +308,18 @@ public sealed class ServerManager : IServerManager
         }
     }
 
+    private static readonly string[] PortKeys = ["server-port", "DefaultPort"];
+    private static readonly string[] MaxPlayersKeys = ["max-players", "MaxPlayers", "sv_maxclients"];
+
     private static int GetPortFromConfig(ServerConfig config, IGameServerPlugin? plugin)
     {
-        if (config.GameSettings.TryGetValue("server-port", out var portObj))
+        foreach (var key in PortKeys)
         {
-            if (portObj is int port) return port;
-            if (portObj is System.Text.Json.JsonElement je && je.TryGetInt32(out var p)) return p;
+            if (config.GameSettings.TryGetValue(key, out var portObj))
+            {
+                if (portObj is int port) return port;
+                if (portObj is System.Text.Json.JsonElement je && je.TryGetInt32(out var p)) return p;
+            }
         }
 
         return plugin?.GetDefaultPort() ?? 0;
@@ -320,10 +327,13 @@ public sealed class ServerManager : IServerManager
 
     private static int GetMaxPlayersFromConfig(ServerConfig config)
     {
-        if (config.GameSettings.TryGetValue("max-players", out var obj))
+        foreach (var key in MaxPlayersKeys)
         {
-            if (obj is int max) return max;
-            if (obj is System.Text.Json.JsonElement je && je.TryGetInt32(out var m)) return m;
+            if (config.GameSettings.TryGetValue(key, out var obj))
+            {
+                if (obj is int max) return max;
+                if (obj is System.Text.Json.JsonElement je && je.TryGetInt32(out var m)) return m;
+            }
         }
         return 20;
     }

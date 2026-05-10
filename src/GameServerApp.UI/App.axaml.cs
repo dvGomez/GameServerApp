@@ -7,6 +7,7 @@ using GameServerApp.Core.Services;
 using GameServerApp.Plugins.FiveM;
 using GameServerApp.Plugins.Minecraft;
 using GameServerApp.Plugins.PaperMC;
+using GameServerApp.Plugins.Zomboid;
 using GameServerApp.UI.Services;
 using GameServerApp.UI.ViewModels;
 using GameServerApp.UI.Views;
@@ -43,6 +44,7 @@ public partial class App : Application
         services.AddSingleton<IGameServerPlugin, MinecraftPlugin>();
         services.AddSingleton<IGameServerPlugin, PaperPlugin>();
         services.AddSingleton<IGameServerPlugin, FiveMPlugin>();
+        services.AddSingleton<IGameServerPlugin, ZomboidPlugin>();
 
         Services = services.BuildServiceProvider();
 
