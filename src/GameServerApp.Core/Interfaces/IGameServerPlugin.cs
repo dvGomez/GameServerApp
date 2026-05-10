@@ -23,7 +23,8 @@ public interface IGameServerPlugin
     Task<string> GetLatestVersionAsync(CancellationToken ct = default);
     Task<IReadOnlyList<string>> GetAvailableVersionsAsync(CancellationToken ct = default);
     Task DownloadServerAsync(string version, string targetDirectory,
-        IProgress<double>? progress = null, CancellationToken ct = default);
+        IProgress<double>? progress = null, CancellationToken ct = default,
+        Action<string>? logOutput = null);
     Task<bool> ValidateInstallationAsync(string serverDirectory, CancellationToken ct = default);
 
     Task WriteGameConfigAsync(string serverDirectory, Dictionary<string, object> configValues,

@@ -34,7 +34,14 @@
       "Bash(git pull *)",
       "Bash(git merge *)",
       "Bash(git tag *)",
-      "PowerShell(Get-Item *)"
+      "PowerShell(Get-Item *)",
+      "PowerShell(if \\(Test-Path \"C:\\\\Users\\\\Lucas\\\\AppData\\\\Roaming\\\\GameServerApp\\\\servers\\\\zomboid\\\\5ea2f89b97254ffaae28b51722c12cc3\"\\) { Get-ChildItem \"C:\\\\Users\\\\Lucas\\\\AppData\\\\Roaming\\\\GameServerApp\\\\servers\\\\zomboid\\\\5ea2f89b97254ffaae28b51722c12cc3\" | ForEach-Object { $_.Name } } else { \"Directory does not exist\" })",
+      "PowerShell(Get-ChildItem \"C:\\\\Users\\\\Lucas\\\\AppData\\\\Roaming\\\\GameServerApp\\\\servers\\\\zomboid\\\\5ea2f89b97254ffaae28b51722c12cc3\" -Recurse -Depth 3 | ForEach-Object { $_.FullName.Replace\\(\"C:\\\\Users\\\\Lucas\\\\AppData\\\\Roaming\\\\GameServerApp\\\\servers\\\\zomboid\\\\5ea2f89b97254ffaae28b51722c12cc3\\\\\", \"\"\\) })",
+      "PowerShell(Get-ChildItem \"C:\\\\Users\\\\Lucas\\\\AppData\\\\Roaming\\\\GameServerApp\\\\servers\\\\zomboid\\\\5ea2f89b97254ffaae28b51722c12cc3\\\\steamapps\" -Recurse -Depth 2 | ForEach-Object { $_.FullName.Replace\\(\"C:\\\\Users\\\\Lucas\\\\AppData\\\\Roaming\\\\GameServerApp\\\\servers\\\\zomboid\\\\5ea2f89b97254ffaae28b51722c12cc3\\\\steamapps\\\\\", \"\"\\) })",
+      "PowerShell(Get-ChildItem \"C:\\\\Users\\\\Lucas\\\\AppData\\\\Roaming\\\\GameServerApp\\\\servers\\\\zomboid\\\\5ea2f89b97254ffaae28b51722c12cc3\" -Recurse | Select-Object -First 30 | ForEach-Object { $_.FullName })",
+      "PowerShell(Get-ChildItem *)",
+      "PowerShell(Start-Process \"dotnet\" -ArgumentList \"run\",\"--project\",\"D:\\\\Projects\\\\temp\\\\GameServerApp\\\\src\\\\GameServerApp.UI\" -WorkingDirectory \"D:\\\\Projects\\\\temp\\\\GameServerApp\")",
+      "PowerShell(Get-Content *)"
     ]
   }
 }

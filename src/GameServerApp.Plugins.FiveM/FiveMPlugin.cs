@@ -150,7 +150,8 @@ public sealed class FiveMPlugin : IGameServerPlugin
     }
 
     public async Task DownloadServerAsync(string version, string targetDirectory,
-        IProgress<double>? progress = null, CancellationToken ct = default)
+        IProgress<double>? progress = null, CancellationToken ct = default,
+        Action<string>? logOutput = null)
     {
         progress?.Report(0.0);
 
