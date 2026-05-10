@@ -15,6 +15,18 @@ com console em tempo real, edição de arquivos e configurações, tudo sem prec
 
 ---
 
+## 📸 Screenshots
+
+<p align="center">
+  <img src="https://i.imgur.com/ZScA75g.png" alt="Console do servidor" width="720" />
+</p>
+
+<p align="center">
+  <img src="https://i.imgur.com/spQJu2p.png" alt="Configurações do servidor" width="720" />
+</p>
+
+---
+
 ## ✨ Features
 
 - 🖥️ **Interface desktop moderna** — Gerencie tudo visualmente, sem precisar de terminal
