@@ -123,6 +123,7 @@ public sealed class ServerManager : IServerManager
         string? version = null,
         Dictionary<string, object>? initialConfig = null,
         IProgress<double>? downloadProgress = null,
+        Action<string>? logOutput = null,
         CancellationToken ct = default)
     {
         if (!_plugins.TryGetValue(gameId, out var plugin))
@@ -151,7 +152,11 @@ public sealed class ServerManager : IServerManager
         config.ServerVersion = version;
 
         await plugin.DownloadServerAsync(version, serverDir, downloadProgress, ct,
-            line => _logger.LogInformation("[{GameId}] {Line}", gameId, line));
+            line =>
+            {
+                _logger.LogInformation("[{GameId}] {Line}", gameId, line);
+                logOutput?.Invoke(line);
+            });
         await plugin.OnBeforeFirstStartAsync(serverDir, ct);
         await plugin.WriteGameConfigAsync(serverDir, config.GameSettings, ct);
         await _configService.SaveServerConfigAsync(config, ct);

@@ -55,14 +55,16 @@ public static class SteamCmdManager
         var absoluteInstallDir = Path.GetFullPath(installDir);
         Directory.CreateDirectory(absoluteInstallDir);
 
-        logOutput?.Invoke($"Starting download for app {appId} to {absoluteInstallDir}");
+        var isUpdate = Directory.EnumerateFileSystemEntries(absoluteInstallDir).Any();
+        var mode = isUpdate ? "update" : "fresh install";
+        logOutput?.Invoke($"Starting {mode} for app {appId} to {absoluteInstallDir}");
 
         for (int attempt = 0; attempt < 2; attempt++)
         {
             if (attempt > 0)
                 logOutput?.Invoke("SteamCMD self-updated, retrying download...");
 
-            var exitCode = await RunSteamCmdAsync(exe, appId, absoluteInstallDir,
+            var exitCode = await RunSteamCmdAsync(exe, appId, absoluteInstallDir, isUpdate,
                 new Progress<double>(p =>
                 {
                     var baseProgress = attempt == 0 ? 0.1 : 0.15;
@@ -84,11 +86,12 @@ public static class SteamCmdManager
     }
 
     private static async Task<int> RunSteamCmdAsync(
-        string exe, int appId, string installDir,
+        string exe, int appId, string installDir, bool validate,
         IProgress<double>? progress, CancellationToken ct,
         Action<string>? logOutput = null)
     {
-        var args = $"+force_install_dir \"{installDir}\" +login anonymous +app_update {appId} validate +quit";
+        var validateFlag = validate ? " validate" : "";
+        var args = $"+@ShutdownOnFailedCommand +@NoPromptForPassword +force_install_dir \"{installDir}\" +login anonymous +app_update {appId}{validateFlag} +quit";
 
         var psi = new ProcessStartInfo
         {
