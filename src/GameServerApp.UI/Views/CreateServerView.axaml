@@ -122,14 +122,21 @@
 
             <!-- Progress -->
             <StackPanel IsVisible="{Binding IsCreating}" Margin="0,0,0,16">
-                <TextBlock Text="Setting up server..."
-                           FontSize="13"
-                           Foreground="#888888"
-                           Margin="0,0,0,8" />
+                <DockPanel Margin="0,0,0,8">
+                    <TextBlock DockPanel.Dock="Right"
+                               Text="{Binding DownloadProgress, StringFormat='{}{0:P0}'}"
+                               FontSize="12"
+                               Foreground="#0EA5E9"
+                               FontWeight="Medium" />
+                    <TextBlock Text="{Binding StatusMessage}"
+                               FontSize="13"
+                               Foreground="#E0E0E0"
+                               TextTrimming="CharacterEllipsis" />
+                </DockPanel>
                 <ProgressBar Value="{Binding DownloadProgress}"
                              Maximum="1"
-                             Height="4"
-                             CornerRadius="2"
+                             Height="6"
+                             CornerRadius="3"
                              Foreground="#0EA5E9" />
             </StackPanel>
 

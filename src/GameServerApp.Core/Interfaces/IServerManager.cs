@@ -16,6 +16,7 @@ public interface IServerManager
         string? version = null,
         Dictionary<string, object>? initialConfig = null,
         IProgress<double>? downloadProgress = null,
+        Action<string>? logOutput = null,
         CancellationToken ct = default);
     Task StartServerAsync(string instanceId, CancellationToken ct = default);
     Task StopServerAsync(string instanceId, CancellationToken ct = default);

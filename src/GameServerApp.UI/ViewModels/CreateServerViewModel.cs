@@ -27,6 +27,9 @@ public partial class CreateServerViewModel : ViewModelBase
     [ObservableProperty]
     private string? _errorMessage;
 
+    [ObservableProperty]
+    private string _statusMessage = string.Empty;
+
     // --- Version selection ---
     public ObservableCollection<string> AvailableVersions { get; } = new();
 
@@ -95,6 +98,7 @@ public partial class CreateServerViewModel : ViewModelBase
 
         IsCreating = true;
         ErrorMessage = null;
+        StatusMessage = "Preparing...";
 
         try
         {
@@ -105,7 +109,8 @@ public partial class CreateServerViewModel : ViewModelBase
             };
 
             var instance = await _serverManager.CreateServerAsync(
-                GameId, ServerName, SelectedVersion, initialConfig, progress);
+                GameId, ServerName, SelectedVersion, initialConfig, progress,
+                line => Avalonia.Threading.Dispatcher.UIThread.Post(() => StatusMessage = line));
 
             ServerCreated?.Invoke(instance.Id);
         }
