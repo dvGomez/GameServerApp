@@ -23,8 +23,8 @@ com console em tempo real, edição de arquivos e configurações, tudo sem prec
 - 📁 **Navegador de arquivos** — Explore e edite arquivos do servidor direto pela interface
 - 🔄 **Atualizações reativas** — Qualquer alteração reflete automaticamente em toda a UI
 - 📋 **Log persistente** — Troque entre servidores sem perder os logs do console
-- 🧩 **Sistema de plugins** — Extensível para qualquer jogo (Minecraft incluso por padrão)
-- 🚀 **Setup automático** — Download do servidor e runtime Java são gerenciados automaticamente
+- 🧩 **Sistema de plugins** — Extensível para qualquer jogo (Minecraft, PaperMC e FiveM inclusos)
+- 🚀 **Setup automático** — Download do servidor e dependências (Java, FXServer) gerenciados automaticamente
 - 🌍 **Cross-platform** — Funciona em Windows, Linux e macOS
 
 ---
@@ -94,6 +94,8 @@ A partir daí você pode:
 | Jogo | Plugin | Status |
 |------|--------|--------|
 | Minecraft Java Edition | `GameServerApp.Plugins.Minecraft` | ✅ Disponível |
+| Minecraft PaperMC | `GameServerApp.Plugins.PaperMC` | ✅ Disponível |
+| FiveM (GTA V) | `GameServerApp.Plugins.FiveM` | ✅ Disponível |
 | *Seu jogo favorito* | Crie um plugin! | 🔧 Extensível |
 
 ### Criando um plugin
@@ -143,10 +145,18 @@ GameServerApp/
 │   │   ├── Views/                   # XAML das telas
 │   │   └── Converters/              # Conversores de dados para UI
 │   │
-│   └── GameServerApp.Plugins.Minecraft/  # Plugin do Minecraft
-│       ├── MinecraftPlugin.cs        # Implementação do IGameServerPlugin
-│       ├── JavaManager.cs            # Download e gerenciamento do Java
-│       └── MinecraftServerProperties.cs  # Parser do server.properties
+│   ├── GameServerApp.Plugins.Minecraft/  # Plugin do Minecraft Java
+│   │   ├── MinecraftPlugin.cs        # Implementação do IGameServerPlugin
+│   │   ├── JavaManager.cs            # Download e gerenciamento do Java
+│   │   └── MinecraftServerProperties.cs  # Parser do server.properties
+│   │
+│   ├── GameServerApp.Plugins.PaperMC/    # Plugin do PaperMC
+│   │   └── PaperPlugin.cs            # PaperMC com suporte a plugins Bukkit/Spigot
+│   │
+│   └── GameServerApp.Plugins.FiveM/      # Plugin do FiveM (GTA V)
+│       ├── FiveMPlugin.cs             # Download via cfx.re, config server.cfg
+│       ├── FiveMConsoleParser.cs       # Parser de logs do FXServer
+│       └── FiveMServerConfig.cs        # Leitura/escrita do server.cfg
 ```
 
 O projeto segue o padrão **MVVM** com separação clara entre Core (lógica), UI (interface) e Plugins (jogos).
@@ -165,7 +175,7 @@ Contribuições são bem-vindas! Sinta-se livre para:
 
 ### Ideias para contribuir
 
-- 🎮 Plugins para novos jogos (Terraria, Factorio, Valheim, etc.)
+- 🎮 Plugins para novos jogos (Terraria, Factorio, Valheim, CS2, Rust, etc.)
 - 🌐 Suporte a i18n (internacionalização)
 - 📊 Dashboard com métricas de uso (CPU, RAM, uptime)
 - 🔔 Sistema de notificações
