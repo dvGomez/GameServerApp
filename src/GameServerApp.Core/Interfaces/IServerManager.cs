@@ -26,6 +26,7 @@ public interface IServerManager
         CancellationToken ct = default);
     ServerConfig? GetServerConfig(string instanceId);
     IGameServerPlugin? GetPlugin(string gameId);
+    IReadOnlyList<IGameServerPlugin> AvailablePlugins { get; }
     IReadOnlyList<ConsoleOutputLine> GetConsoleHistory(string instanceId);
     void AddConsoleEntry(string instanceId, ConsoleOutputLine line);
     Task LoadAllServersAsync(CancellationToken ct = default);

@@ -80,6 +80,9 @@ public sealed class ServerManager : IServerManager
     public IGameServerPlugin? GetPlugin(string gameId) =>
         _plugins.GetValueOrDefault(gameId);
 
+    public IReadOnlyList<IGameServerPlugin> AvailablePlugins =>
+        _plugins.Values.ToList().AsReadOnly();
+
     public ServerConfig? GetServerConfig(string instanceId) =>
         _configs.GetValueOrDefault(instanceId);
 

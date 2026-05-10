@@ -12,6 +12,7 @@ public class GameIdToIconConverter : IValueConverter
     private static readonly Dictionary<string, string> IconPaths = new()
     {
         ["minecraft"] = "avares://GameServerApp.UI/Assets/minecraft.png",
+        ["paper"] = "avares://GameServerApp.UI/Assets/minecraft.png",
     };
 
     private static readonly Dictionary<string, Bitmap?> Cache = new();
