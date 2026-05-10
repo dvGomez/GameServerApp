@@ -19,7 +19,22 @@
       "PowerShell(Remove-Item *)",
       "PowerShell(dotnet build *)",
       "PowerShell(Start-Process dotnet -ArgumentList \"run\",\"--project\",\"D:\\\\Projects\\\\temp\\\\GameServerApp\\\\src\\\\GameServerApp.UI\" -PassThru | Select-Object -Property Id)",
-      "PowerShell(Start-Process -FilePath \"dotnet\" -ArgumentList \"run --project D:\\\\Projects\\\\temp\\\\GameServerApp\\\\src\\\\GameServerApp.UI\" -WindowStyle Normal)"
+      "PowerShell(Start-Process -FilePath \"dotnet\" -ArgumentList \"run --project D:\\\\Projects\\\\temp\\\\GameServerApp\\\\src\\\\GameServerApp.UI\" -WindowStyle Normal)",
+      "PowerShell(dotnet new classlib *)",
+      "PowerShell(Invoke-RestMethod -Uri \"https://changelogs-live.fivem.net/api/changelog/versions/win32/server\" | ConvertTo-Json)",
+      "PowerShell(Stop-Process *)",
+      "WebFetch(domain:fivem.net)",
+      "WebFetch(domain:docs.fivem.net)",
+      "PowerShell(try { Invoke-WebRequest -Uri \"https://servers-frontend.fivem.net/api/servers/icon/fivem\" -OutFile \"D:\\\\Projects\\\\temp\\\\GameServerApp\\\\src\\\\GameServerApp.UI\\\\Assets\\\\fivem.png\" -ErrorAction Stop; \"Downloaded\" } catch { $_.Exception.Message })",
+      "PowerShell(try { Invoke-WebRequest -Uri \"https://upload.wikimedia.org/wikipedia/commons/thumb/4/49/FiveM-Logo.png/240px-FiveM-Logo.png\" -OutFile \"D:\\\\Projects\\\\temp\\\\GameServerApp\\\\src\\\\GameServerApp.UI\\\\Assets\\\\fivem.png\" -ErrorAction Stop; \"Downloaded\" } catch { $_.Exception.Message })",
+      "Bash(git status *)",
+      "Bash(git add *)",
+      "Bash(git commit *)",
+      "Bash(git push *)",
+      "Bash(git pull *)",
+      "Bash(git merge *)",
+      "Bash(git tag *)",
+      "PowerShell(Get-Item *)"
     ]
   }
 }
