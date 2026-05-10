@@ -140,6 +140,23 @@
                                            VerticalAlignment="Center" />
                             </DockPanel>
 
+                            <!-- Server Name -->
+                            <StackPanel Margin="0,0,0,16">
+                                <TextBlock Text="Server Name"
+                                           FontSize="13"
+                                           FontWeight="Medium"
+                                           Foreground="#E0E0E0"
+                                           Margin="0,0,0,6" />
+                                <TextBox Text="{Binding ServerName}"
+                                         Background="#222222"
+                                         Foreground="#E0E0E0"
+                                         BorderBrush="#2A2A2A"
+                                         CornerRadius="5"
+                                         Padding="10,8"
+                                         FontSize="13"
+                                         PlaceholderText="Server name" />
+                            </StackPanel>
+
                             <ItemsControl ItemsSource="{Binding Fields}">
                                 <ItemsControl.ItemTemplate>
                                     <DataTemplate x:DataType="vm:ConfigFieldViewModel">

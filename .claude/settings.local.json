@@ -41,7 +41,12 @@
       "PowerShell(Get-ChildItem \"C:\\\\Users\\\\Lucas\\\\AppData\\\\Roaming\\\\GameServerApp\\\\servers\\\\zomboid\\\\5ea2f89b97254ffaae28b51722c12cc3\" -Recurse | Select-Object -First 30 | ForEach-Object { $_.FullName })",
       "PowerShell(Get-ChildItem *)",
       "PowerShell(Start-Process \"dotnet\" -ArgumentList \"run\",\"--project\",\"D:\\\\Projects\\\\temp\\\\GameServerApp\\\\src\\\\GameServerApp.UI\" -WorkingDirectory \"D:\\\\Projects\\\\temp\\\\GameServerApp\")",
-      "PowerShell(Get-Content *)"
+      "PowerShell(Get-Content *)",
+      "Bash(dir /s /b *.axaml)",
+      "Bash(Get-ChildItem -Recurse -Filter \"*.axaml\")",
+      "Bash(Select-Object FullName)",
+      "Bash(xargs grep -l \"edit\\\\|rename\" -i)",
+      "WebFetch(domain:i.imgur.com)"
     ]
   }
 }
