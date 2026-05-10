@@ -5,6 +5,8 @@ using Avalonia.Threading;
 using GameServerApp.Core.Interfaces;
 using GameServerApp.Core.Services;
 using GameServerApp.Plugins.Minecraft;
+using GameServerApp.Plugins.PaperMC;
+using GameServerApp.UI.Services;
 using GameServerApp.UI.ViewModels;
 using GameServerApp.UI.Views;
 using Microsoft.Extensions.DependencyInjection;
@@ -27,13 +29,18 @@ public partial class App : Application
 
         var services = new ServiceCollection();
 
-        services.AddLogging();
+        services.AddLogging(builder =>
+        {
+            builder.SetMinimumLevel(LogLevel.Debug);
+            builder.AddProvider(InMemoryLoggerProvider.Instance);
+        });
 
         services.AddSingleton<IConfigurationService, ConfigurationService>();
         services.AddSingleton<IProcessManager, ProcessManager>();
         services.AddSingleton<IServerManager, ServerManager>();
 
         services.AddSingleton<IGameServerPlugin, MinecraftPlugin>();
+        services.AddSingleton<IGameServerPlugin, PaperPlugin>();
 
         Services = services.BuildServiceProvider();
 
@@ -69,18 +76,42 @@ public partial class App : Application
     {
         AppDomain.CurrentDomain.UnhandledException += (_, e) =>
         {
-            Console.Error.WriteLine($"[FATAL] Unhandled exception: {e.ExceptionObject}");
+            var msg = $"[FATAL] Unhandled exception: {e.ExceptionObject}";
+            Console.Error.WriteLine(msg);
+            InMemoryLoggerProvider.Instance.AddEntry(new LogEntry
+            {
+                Timestamp = DateTime.Now,
+                Level = LogLevel.Critical,
+                Category = "AppDomain",
+                Message = msg
+            });
         };
 
         TaskScheduler.UnobservedTaskException += (_, e) =>
         {
-            Console.Error.WriteLine($"[WARN] Unobserved task exception: {e.Exception}");
+            var msg = $"Unobserved task exception: {e.Exception}";
+            Console.Error.WriteLine($"[WARN] {msg}");
+            InMemoryLoggerProvider.Instance.AddEntry(new LogEntry
+            {
+                Timestamp = DateTime.Now,
+                Level = LogLevel.Warning,
+                Category = "TaskScheduler",
+                Message = msg
+            });
             e.SetObserved();
         };
 
         Dispatcher.UIThread.UnhandledException += (_, e) =>
         {
-            Console.Error.WriteLine($"[ERROR] UI thread exception: {e.Exception}");
+            var msg = $"UI thread exception: {e.Exception}";
+            Console.Error.WriteLine($"[ERROR] {msg}");
+            InMemoryLoggerProvider.Instance.AddEntry(new LogEntry
+            {
+                Timestamp = DateTime.Now,
+                Level = LogLevel.Error,
+                Category = "UIThread",
+                Message = msg
+            });
             e.Handled = true;
         };
     }

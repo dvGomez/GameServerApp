@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
     <TargetFramework>net9.0</TargetFramework>
@@ -30,5 +30,6 @@
   <ItemGroup>
     <ProjectReference Include="..\GameServerApp.Core\GameServerApp.Core.csproj" />
     <ProjectReference Include="..\GameServerApp.Plugins.Minecraft\GameServerApp.Plugins.Minecraft.csproj" />
+    <ProjectReference Include="..\GameServerApp.Plugins.PaperMC\GameServerApp.Plugins.PaperMC.csproj" />
   </ItemGroup>
 </Project>

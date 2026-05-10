@@ -2,11 +2,16 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:vm="using:GameServerApp.UI.ViewModels"
              xmlns:models="using:GameServerApp.Core.Models"
+             xmlns:conv="using:GameServerApp.UI.Converters"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="600"
              x:Class="GameServerApp.UI.Views.HomeView"
              x:DataType="vm:HomeViewModel">
+
+    <UserControl.Resources>
+        <conv:GameIdToIconConverter x:Key="GameIdToIcon" />
+    </UserControl.Resources>
 
     <ScrollViewer>
         <StackPanel Margin="40,40" MaxWidth="700" HorizontalAlignment="Left">
@@ -45,11 +50,24 @@
                                 </Style>
                             </Border.Styles>
                             <StackPanel>
-                                <TextBlock Text="{Binding DisplayName}"
-                                           FontSize="18"
-                                           FontWeight="SemiBold"
-                                           Foreground="#E0E0E0"
-                                           Margin="0,0,0,6" />
+                                <!-- Game icon + name row -->
+                                <StackPanel Orientation="Horizontal" Spacing="12" Margin="0,0,0,10">
+                                    <Border Width="40" Height="40"
+                                            CornerRadius="8"
+                                            Background="#1A1A1A"
+                                            ClipToBounds="True">
+                                        <Image Source="{Binding GameId, Converter={StaticResource GameIdToIcon}}"
+                                               Width="32" Height="32"
+                                               Stretch="Uniform"
+                                               HorizontalAlignment="Center"
+                                               VerticalAlignment="Center" />
+                                    </Border>
+                                    <TextBlock Text="{Binding DisplayName}"
+                                               FontSize="18"
+                                               FontWeight="SemiBold"
+                                               Foreground="#E0E0E0"
+                                               VerticalAlignment="Center" />
+                                </StackPanel>
                                 <TextBlock Text="{Binding Description}"
                                            FontSize="13"
                                            Foreground="#888888"

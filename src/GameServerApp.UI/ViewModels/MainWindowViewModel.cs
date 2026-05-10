@@ -21,6 +21,11 @@ public partial class MainWindowViewModel : ViewModelBase
     [ObservableProperty]
     private ViewModelBase _currentPage;
 
+    [ObservableProperty]
+    private bool _isSystemLogVisible;
+
+    public SystemLogViewModel SystemLog { get; } = new();
+
     public MainWindowViewModel(IServerManager serverManager)
     {
         _serverManager = serverManager;
@@ -53,19 +58,7 @@ public partial class MainWindowViewModel : ViewModelBase
 
     private IEnumerable<IGameServerPlugin> GetAvailablePlugins()
     {
-        var plugins = new List<IGameServerPlugin>();
-        foreach (var instance in _serverManager.Instances)
-        {
-            var plugin = _serverManager.GetPlugin(instance.GameId);
-            if (plugin != null && plugins.All(p => p.GameId != plugin.GameId))
-                plugins.Add(plugin);
-        }
-
-        var minecraftPlugin = _serverManager.GetPlugin("minecraft");
-        if (minecraftPlugin != null && plugins.All(p => p.GameId != "minecraft"))
-            plugins.Add(minecraftPlugin);
-
-        return plugins;
+        return _serverManager.AvailablePlugins;
     }
 
     partial void OnSelectedSidebarItemChanged(SidebarItemViewModel? value)
@@ -88,6 +81,12 @@ public partial class MainWindowViewModel : ViewModelBase
         homeVm.GameSelected += OnGameSelected;
         CurrentPage = homeVm;
         SelectedSidebarItem = null;
+    }
+
+    [RelayCommand]
+    private void ToggleSystemLog()
+    {
+        IsSystemLogVisible = !IsSystemLogVisible;
     }
 
     private void OnGameSelected(string gameId)
