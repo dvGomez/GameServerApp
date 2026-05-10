@@ -4,6 +4,7 @@ using Avalonia.Markup.Xaml;
 using Avalonia.Threading;
 using GameServerApp.Core.Interfaces;
 using GameServerApp.Core.Services;
+using GameServerApp.Plugins.FiveM;
 using GameServerApp.Plugins.Minecraft;
 using GameServerApp.Plugins.PaperMC;
 using GameServerApp.UI.Services;
@@ -41,6 +42,7 @@ public partial class App : Application
 
         services.AddSingleton<IGameServerPlugin, MinecraftPlugin>();
         services.AddSingleton<IGameServerPlugin, PaperPlugin>();
+        services.AddSingleton<IGameServerPlugin, FiveMPlugin>();
 
         Services = services.BuildServiceProvider();
 
